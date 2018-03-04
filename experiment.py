@@ -12,7 +12,7 @@ INSTRUCTION_FOR_START_EXPERIEMENT = 105
 CONDITION = 1
 STEP = 5
 # priming time should be 180000 (3 mins)
-PRIMING_TIME = 1000
+PRIMING_TIME = 180000
 
 
 def PrepareTrial(emotion_pair, set, left_emotion, right_emotion):
@@ -145,9 +145,9 @@ exp.data_variable_names = ["Block", "Trial", "Key", "RT", "Current"]
 expyriment.control.set_develop_mode(True)
 expyriment.control.start()
 
-# for block in exp.blocks:
-#     for trial in block.trials:
-#         PerformControlTrial(1, trial)
+for block in exp.blocks:
+    for trial in block.trials:
+        PerformControlTrial(1, trial)
 
 for block in exp.blocks:
     for trial in block.trials:
