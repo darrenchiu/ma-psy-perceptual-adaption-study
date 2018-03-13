@@ -1,5 +1,4 @@
 import expyriment
-import random
 
 # Constants
 BLANK = 0
@@ -36,15 +35,19 @@ def PrepareTrial(emotion_pair, set, left_emotion, right_emotion):
     trial.add_stimulus(instruction_screen)
 
     priming_instruction_screen = expyriment.stimuli.TextBox(
-        'Before the experiement, we will first show you a face for 3 minutes.\n\nFor each response, we will show you a face for 5 seconds before flashing you the face that you need to respond.\n\nWhen you are ready to start, press <Enter> Key.', (1000, 500))
+        'Before the experiement, we will first show you a face for 3 minutes.\n\nFor each response, we will show you a face for 5 seconds before flashing you the face that you need to respond.\n\nWhen you are ready to start, press <Enter> Key.',
+        (1000, 500))
     priming_instruction_screen.preload()
     trial.add_stimulus(priming_instruction_screen)
 
-    start_priming_screen = expyriment.stimuli.TextBox('Now we will show you a face for 3 minutes.\n\nPlease focus on it.\n\nWhen ready, press <Enter> key.', (1000, 500))
+    start_priming_screen = expyriment.stimuli.TextBox(
+        'Now we will show you a face for 3 minutes.\n\nPlease focus on it.\n\nWhen ready, press <Enter> key.',
+        (1000, 500))
     start_priming_screen.preload()
     trial.add_stimulus(start_priming_screen)
 
-    start_experiment_screen = expyriment.stimuli.TextBox('Now experiment starts.\n\nWhen ready, press <Enter> key.', (1000, 500))
+    start_experiment_screen = expyriment.stimuli.TextBox('Now experiment starts.\n\nWhen ready, press <Enter> key.',
+                                                         (1000, 500))
     start_experiment_screen.preload()
     trial.add_stimulus(start_experiment_screen)
 
@@ -98,6 +101,11 @@ def PerformExperimentTrial(block_idx, trial):
         elif key == expyriment.misc.constants.K_RIGHT:
             current_number = current_number - STEP
 
+        if current_number < 1:
+            current_number = 1
+        elif current_number > 100:
+            current_number = 100
+
 
 def PerformControlTrial(block_idx, trial):
     # show instruction
@@ -128,6 +136,11 @@ def PerformControlTrial(block_idx, trial):
         elif key == expyriment.misc.constants.K_RIGHT:
             current_number = current_number - STEP
 
+        if current_number < 1:
+            current_number = 1
+        elif current_number > 100:
+            current_number = 100
+
 
 # Main Program
 exp = expyriment.design.Experiment(name="Visual Perception Experiement")
@@ -137,8 +150,10 @@ block = expyriment.design.Block(name="A name for the block")
 
 block.add_trial(PrepareTrial("HA-AN", 1, "HAPPY", "ANGRY"))
 block.add_trial(PrepareTrial("HA-AN", 2, "HAPPY", "ANGRY"))
+block.add_trial(PrepareTrial("HA-AN", 3, "HAPPY", "ANGRY"))
 block.add_trial(PrepareTrial("DI-SU", 1, "DISGUST", "SURPRISED"))
 block.add_trial(PrepareTrial("DI-SU", 2, "DISGUST", "SURPRISED"))
+block.add_trial(PrepareTrial("DI-SU", 3, "DISGUST", "SURPRISED"))
 exp.add_block(block)
 
 exp.data_variable_names = ["Block", "Trial", "Key", "RT", "Current"]
