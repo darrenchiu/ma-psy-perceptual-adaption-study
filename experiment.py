@@ -11,7 +11,7 @@ INSTRUCTION_FOR_START_EXPERIEMENT = 106
 
 STEP = 5
 # priming time should be 180000 (3 mins)
-PRIMING_TIME = 5000
+PRIMING_TIME = 180000
 
 
 def PrepareTrial(emotion_pair, set, left_emotion, right_emotion):
@@ -160,6 +160,7 @@ expyriment.control.initialize(exp)
 block = expyriment.design.Block(name="A name for the block")
 
 block.add_trial(PrepareTrial("HA-AN", 4, "HAPPY", "ANGRY"))
+block.add_trial(PrepareTrial("DI-SU", 2, "DISGUST", "SURPRISE"))
 block.add_trial(PrepareTrial("HA-FE", 1, "HAPPY", "FEAR"))
 exp.add_block(block)
 
